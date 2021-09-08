@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<body onload="run()">
+    <h1>Waterrocketcalculator</h1>
+    <div id="calcfield">
+        <div class="inputfield">
+            <label class="inputname">Leergewicht</label>
+            <input id="leergewicht" class="listinput" type="number" value=0.445 step="0.1">
+        </div>
+        <div class="inputfield">
+            <label class="inputname">Füllvolumen</label>
+            <input id="volumen" class="listinput" type="number" value=4.6 step="0.1">
+        </div>
+        <div class="inputfield">
+            <label class="inputname">Düsendurchmesser</label>
+            <input id="durchmesserDues" class="listinput" type="number" value=0.022 step="0.1">
+        </div>
+        <div class="inputfield">
+            <label class="inputname">Raketendurchmesser</label>
+            <input id="durchmesserRak" class="listinput" type="number" value=0.1 step="0.1">
+        </div>
+        <div class="inputfield">
+            <label class="inputname">Winkel Übergang</label>
+            <input id="winkel" class="listinput" type="number" value=1 step="0.1">
+        </div>
+        <button onclick="run()">Do the Math's!'</button>
+    </div>
+    <!-- <div id="usefulinfos">
+            <table>
+                <tr>
+                    <td>Max speed:</td>
+                    <td id="maxspeed"></td>
+                </tr>
+            </table>
+        </div> -->
+    <div id="graphwrapper">
+        <canvas id="heightgraph"></canvas>
+        <canvas id="maxspeedgraph"></canvas>
+    </div>
+    <script src="./newApp.js"></script>
+</body>
+
+</html>
