@@ -32,13 +32,12 @@ while second <= breakSecond:
 
     # berechnen:
     Vwasser = (2*pressure/dichte)**0.5 # m/s keine Ahnung, warum man den Durchmesser nicht braucht 
-                                  # siehe auch https://www.physikerboard.de/topic,45753,-wasserstrahlaustrittsgeschwindigkeit-einer-1mm-duese.html
+                                  # siehe auch https://www.physikerb    oard.de/topic,45753,-wasserstrahlaustrittsgeschwindigkeit-einer-1mm-duese.html
     austrMasse = duesenflaeche * Vwasser * step * dichte # kg weil m^2 * m/s * 1s = m^3, m^3*kg/m^3=kg
     thrust = austrMasse*Vwasser # kg*m/s = N
     twr = thrust/(masse*constants.g)
-    beschleunigung = -thrust/masse*step
-    Vrakete += beschleunigung # impulsänderung durch Wasseraustritt (+m/s)
-    Vrakete -= constants.g*step # impulsänderung durch Gravitation (-m/s)
+    beschleunigung = thrust/masse*step - constants.g*step # impulsänderung durch Wasseraustritt (+m/s) - impulsänderung durch Gravitation (-m/s)
+    Vrakete += beschleunigung
 
     # auswerten:
     print("Vrakete: {} m/s,\nVwasser: {} m/s,\nbeschleunigung: {} m/s^2,\nTWR: {},\naustrMasse: {} kg,\nmasse: {} kg\n".format(round(Vrakete, 2), round(Vwasser, 2), round(beschleunigung, 2), round(twr, 2), round(austrMasse, 2), round(masse, 2)))
