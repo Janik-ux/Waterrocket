@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: docker://pandoc/latex:2.16.1
         with:
-          args: >-
-            --output=/workspace/formulas.pdf
-            /workspace/formulas.md
-    volumes:
-       - ${{ github.workspace }}:/workspace
+          args: --output=formulas.pdf ${{ formulas.md }}
+      - uses: actions/upload-artifact@master
+        with:
+          name: formulas.pdf
+          path: formulas.pdf
