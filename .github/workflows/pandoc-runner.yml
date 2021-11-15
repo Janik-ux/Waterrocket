@@ -1,12 +1,14 @@
 name: pandoc runner
-on: [push]
+on: 
+  push:
+    paths:
+      - 'formulas.md'
 
 jobs:
   convert_via_pandoc:
     runs-on: ubuntu-18.04
     steps:
-      - run: echo "foo" > input.txt  # create an example file
-      - uses: docker://pandoc/latex:2.9
+      - uses: docker://pandoc/latex:2.16.1
         with:
           args: >-
             --output=formulas.pdf
