@@ -8,4 +8,4 @@ Laut dem 2. Newtonschen Gesetz ist die Kraft gleich der Masse mal der Beschleuni
 So ergibt sich nun die Geschwindigkeit $v_{rakete}$ aus der gleichmäßig beschleunigten Bewegung als $v_{rakete} = a_{rakete}*t + v_{0_{rakete}}$ nach der Zeit $t$. 
 
 Allerdings haben wir bei der Wasserrakete eine ungleichmäßig beschleunigte Bewegung vorliegen, da sich der innere Druck und die Masse der Rakete über die Zeit $t$ ändern.
-test
+test test gdg
