@@ -11,6 +11,7 @@ jobs:
       - uses: docker://pandoc/latex:2.16.1
         with:
           args: >-
-            --output=formulas.pdf
-            formulas.md
-
+            --output=/workspace/formulas.pdf
+            /workspace/formulas.md
+    volumes:
+       - ${{ github.workspace }}:/workspace
