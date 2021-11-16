@@ -13,10 +13,10 @@ wassermasse = gesamtvolumen*wasserfuellanteil*dichte
 startmasse = wassermasse + leermasse
 initialLuftvolumen = gesamtvolumen*luftfuellanteil
 initialpressure = 15 * 10**5 # Pa
-breakSecond = 5
 duesendurchmesser = 0.022 # m
 duesenflaeche     = math.pi * (duesendurchmesser/2)**2 # m^2 unter Annahme einer runden Düse
-step = 0.1 # wie genau auflösen? 1 sekunde # TODO ist wahrscheinlich zu ungenau
+step = 0.005 # wie genau auflösen? 1 sekunde # TODO ist wahrscheinlich zu ungenau
+breakSecond = 1.5
 
 dummy = 1234.234
 
@@ -24,6 +24,7 @@ dummy = 1234.234
 x_list = []
 twr_list = []
 Vrakete_list = []
+pressure_list = []
 
 # daten für iterative vorgehensweise
 # vars to be changed every iteration
@@ -35,7 +36,7 @@ luftvolumen = initialLuftvolumen
 
 # powered ascend
 # loop for sigma function
-while second <= breakSecond:
+while second <= breakSecond and masse>0:
     print("----------Sekunde: {}----------".format(second))
     # iterieren pro sekunde
 
@@ -53,18 +54,22 @@ while second <= breakSecond:
     x_list.append(second)
     twr_list.append(twr)
     Vrakete_list.append(Vrakete)
+    pressure_list.append(pressure/10**5)
 
     # vars für nächsten step bereit machen
     masse       -= austrMasse
     luftvolumen += austrVolumen # die Luft hat nun etwas mehr platz, da Wasser fehlt
     pressure    = initialpressure*initialLuftvolumen/luftvolumen # Pa*m^3/m^3=Pa
-    # if masse <= leermasse:
-    #     break # quickfix normal mit druck regeln, sodass einfach keine austrMasse mehrabgezogen wird.
     second += step
-    second = round(second, 1)
+    second = round(second, 4) # TODO ACHTUNG wenn step kleiner als round gibt es eine endlose schleife
 
-plt.plot(x_list, twr_list)
-plt.plot(x_list, Vrakete_list)
-plt.legend(["TWR", "Vrakete"])
-plt.title("Waterrocket data")
+fig, axs = plt.subplots(3)
+fig.legend(["TWR", "Vrakete"])
+fig.suptitle("Waterrocket data")
+axs[0].plot(x_list, twr_list, "tab:green")
+axs[0].set_title("TWR")
+axs[1].plot(x_list, Vrakete_list, "tab:red")
+axs[1].set_title("velocity rocket")
+axs[2].plot(x_list, pressure_list, "tab:blue")
+axs[2].set_title("pressure")
 plt.show()
