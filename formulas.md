@@ -16,7 +16,7 @@ Die Strecke der Rakete hängt von folgenden Faktoren ab:
 * Füllanteil von Wasser bezogen auf die Gesamtmenge
 * Masse $m$ der Rakete bestehend aus
   * Leermasse  (konstant)
-  * Wassermasse
+  * Wassermasse (geteilt durch die Dichte ergibt das Volumen $V_{wasser}$) abhängig vom Füllanteil
   * Luftmasse (erstmal vernachlässigt)
 * Überdruck in der Rakete
 <!-- TODO Luftwiderstand gehört auch mit dazu -->
@@ -28,16 +28,28 @@ Laut dem 2. Newtonschen Gesetz ist die Kraft gleich der Masse mal der Beschleuni
 
 1. Um $a_{Wasser}$ zu berechnen, benötigt man die Bernoulli Gleichung zur Strömung aus einem Loch: $$c = \sqrt{\frac{2*p}{\rho_{Wasser}}}=a_{Wasser}$$ wobei $c$ die Strömungsgeschwindigkeit, also $a_{Wasser}$ beschreibt.
 
-2. Mithilfe dieser Strömungsgeschwindigkeit und den oben gegebenen Faktoren können wir auch noch die zweite zur Berechnung der Beschleunigung benötigte Variable $m_{Wasserausx}$ berechnen. Die Masse $m$ eines Körpers ist gleich dem Produkt von Volumen und Dichte desselben ($m =  \rho * V$). Da $\rho$ schon oben gegeben ist, benötigen wir noch das Volumen $V$. Dies kann man berechnen, in dem man sich das ausgestoßene Wasser als einen Zylinder vorstellt. Die Grundfläche des Zylinders entspricht der Fläche der Düse, also aus unseren gegebenen Faktoren berechenbar, und die Höhe der Entfernung, die das Wasser mit der Austrittsgeschwindigkeit $a_{Wasser}$ in einem Interval $t$ zurück gelegt hat. Also ergibt sich:
-$$m_{Wasseraus}=\rho_{Wasser}*(A_{Düse}*a_{Wasser}*t)$$
+2. Mithilfe dieser Strömungsgeschwindigkeit und den oben gegebenen Faktoren können wir auch noch die zweite zur Berechnung der Beschleunigung benötigte Variable $m_{Wasserausx}$ berechnen. Die Masse $m$ eines Körpers ist gleich dem Produkt von Volumen und Dichte desselben ($m =  \rho * V$). Da $\rho$ schon oben gegeben ist, benötigen wir noch das Volumen $V$. Dies kann man berechnen, in dem man sich das ausgestoßene Wasser als einen Zylinder vorstellt. Die Grundfläche des Zylinders entspricht der Fläche der Düse, also aus unseren gegebenen Faktoren berechenbar, und die Höhe der Entfernung, die das Wasser mit der Austrittsgeschwindigkeit $a_{Wasser}$ in einer Zeit $t_{step}=t_{start}-t_{end}$ zurück gelegt hat. Also ergibt sich:
+$$m_{Wasseraus}=\rho_{Wasser}*(A_{Düse}*a_{Wasser}*t_{step})$$
 
 3. Die dritte Variable ist $m_{Rakete}$, sie besteht aus dem Volumen des Wassers mal seiner Dichte plus dem Leergewicht der Rakete. ($m_{Rakete} = V_{Wasser} * \rho_{Wasser} + m_{Raketeleer}$)
 
 Setzt man dies zusammen, so ergibt sich mit der Erdbeschleunigung $-g$:
 
-$$a_{Rakete} = -\frac{(\sqrt{\frac{2*p}{\rho_{Wasser}}})*(\rho_{Wasser}*A_{Düse}*\sqrt{\frac{2*p}{\rho_{Wasser}}}*t)}{V_{Wasser}*\rho_{Wasser} + m_{Raketeleer}}-g$$
+$$a_{Rakete} = -\frac{(\sqrt{\frac{2*p}{\rho_{Wasser}}})*(\rho_{Wasser}*A_{Düse}*\sqrt{\frac{2*p}{\rho_{Wasser}}}*t_{step})}{V_{Wasser}*\rho_{Wasser} + m_{Raketeleer}}-g$$
 
-Wenn der Anteil des Luftvolumens 100% ist muss der (über-) Druck null bar sein.
+Nun kürzen wir $\rho_{Wasser}$ weg, fassen $\sqrt{\frac{2*p}{\rho_{Wasser}}}*\sqrt{\frac{2*p}{\rho_{Wasser}}}$ zu $(\sqrt{\frac{2*p}{\rho_{Wasser}}})^2=\frac{2*p}{\rho_{Wasser}}$ zusammen und erhalten:
+
+$$a_{Rakete}=-\frac{\frac{2*p}{\rho_{Wasser}}*(A_{Düse}*t_{step})}{V_{Wasser} + m_{Raketeleer}}-g$$
+
+Leider sind $p$ und $V_{wasser}$ nun variabel über die Zeit $t$, was bedeutet, dass wir für die Beschleunigung $a_{Rakete}(t)$ zur Zeit $t$ die Parameter $p(t)$ und $V_{Wasser}(t)$ haben.
+
+* $p(t)$ hängt vom  Wasservolumen $V_{Wasser}(t)$ ab. Aus dem Gesetz von [Boyle-Mariotte](https://de.wikipedia.org/wiki/Thermische_Zustandsgleichung_idealer_Gase#Gesetz_von_Boyle-Mariotte) folgt, dass das Produkt aus einem Druck und seinem Volumen gleich dem Produkt aus einem zweiten Druck und seinem Volumen ist ($p_1*V_1=p_2*V_2$). Dies können wir auf unsere Rakete wie folgt anwenden: $p(t)=\frac{p_{start}*V_{start}}{V_{Wasser}(t)}$
+
+* $V(t)=\frac{p_{start}*V_{start}}{p(t)}$ wie leicht ersichtlich ist, allerdings ist dies ein Paradoxon... Dies muss man anders lösen!
+
+>Gedanke:
+>
+>Wenn der Anteil des Luftvolumens 100% ist, muss der (über-) Druck null bar betragen.
 
 ### Geschwindigkeit $v_{Rakete}$
 
