@@ -7,17 +7,18 @@ import matplotlib.pyplot as plt
 dichte      = 1000 # kg/m^3
 wasserfuellanteil = 1/3
 luftfuellanteil = 1-wasserfuellanteil
-leermasse   = 0.445 # kg
+leermasse   = 0 # 0.445 # kg
 gesamtvolumen = 4.6 * 10**-3 # L * 10^-3 = m^3
 wassermasse = gesamtvolumen*wasserfuellanteil*dichte
 startmasse = wassermasse + leermasse
 initialLuftvolumen = gesamtvolumen*luftfuellanteil
 initialwasservolumen = gesamtvolumen*wasserfuellanteil
 initialpressure = 15 * 10**5 # Pa
-duesendurchmesser = 0.022 # m # default 0.022
+initialpressure = initialpressure + 1 # weg en atmosphäre
+duesendurchmesser = 0.0022 # m # default 0.022
 duesenflaeche     = math.pi * (duesendurchmesser/2)**2 # m^2 unter Annahme einer runden Düse
-step = 0.005 # wie genau auflösen?
-breakSecond = 1.5
+step = 0.005 # wie genau auflösen? # TODO ACHTUNG wenn step kleiner als round gibt es eine endlose schleife
+breakSecond = 0.5
 
 dummy = 1234.234 # for debugging
 
@@ -38,11 +39,13 @@ luftvolumen = initialLuftvolumen
 print("Luftvolumen: " + str(luftvolumen))
 wasservolumen = initialwasservolumen
 print("Wasservolumen: " + str(wasservolumen))
+Strecke = 0
+
+print(initialpressure*initialLuftvolumen/gesamtvolumen)
 
 # powered ascend
-# loop for sigma function
-while second <= breakSecond and masse>0:
-    print("----------Sekunde: {}----------".format(second))
+# loop for sum function
+while second <= breakSecond and masse>=0:
     # iterieren pro sekunde
 
     # berechnen:
@@ -52,9 +55,11 @@ while second <= breakSecond and masse>0:
     thrust         = austrMasse*Vwasser # kg*m/s = N
     twr            = thrust/(masse*constants.g)
     beschleunigung = thrust/masse*step - constants.g*step # impulsänderung durch Wasseraustritt (+m/s) - impulsänderung durch Gravitation (-m/s)
-    Vrakete       += beschleunigung
+    Vrakete       -= beschleunigung
+    Strecke       += Vrakete*step
 
     # auswerten:                                                                                                                                                              Vrakete            Vwasser            beschleunigung            twr            austrMasse            austrVolumen            masse            pressure
+    print("----------Sekunde: {}----------".format(second))
     print("Vrakete: {} m/s,\nVwasser: {} m/s,\nbeschleunigung: {} m/s^2,\nbeschleunigung ohne g: {} m/s^2,\nTWR: {},\naustrMasse: {} kg,\naustrVolumen: {} m^3,\nmasse: {} kg,\npressure: {} bar,\nluftvolumen: {} m^3,\nwasservolumen: {} m^3\n".format(round(Vrakete, 2), round(Vwasser, 2), round(beschleunigung, 2), round(beschleunigung+constants.g*step, 2), round(twr, 2), round(austrMasse, 2), round(austrVolumen, 5), round(masse, 2), round(pressure/10**5, 2), round(luftvolumen, 5), round(wasservolumen, 5)))
     x_list.append(second)
     twr_list.append(twr)
@@ -66,7 +71,8 @@ while second <= breakSecond and masse>0:
     masse       -= austrMasse
     luftvolumen += austrVolumen # die Luft hat nun etwas mehr platz, da Wasser fehlt
     wasservolumen -= austrVolumen
-    pressure    = initialpressure*initialLuftvolumen/luftvolumen # Pa*m^3/m^3=Pa
+    # pressure    = initialpressure*initialLuftvolumen/luftvolumen # Pa*m^3/m^3=Pa
+    pressure = 1*gesamtvolumen/luftvolumen
     second += step
     second = round(second, 4) # TODO ACHTUNG wenn step kleiner als round gibt es eine endlose schleife
 
@@ -82,3 +88,5 @@ axs[2].set_title("pressure")
 axs[3].plot(x_list, masse_list, "tab:pink")
 axs[3].set_title("masse")
 plt.show()
+print(Strecke)
+print(gesamtvolumen)
