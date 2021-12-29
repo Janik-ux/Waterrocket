@@ -1,0 +1,46 @@
+# Rakete 1 
+
+## technische Daten
+
+* Baustart: 28-12-2021
+* erster Start: 12-12-2012 1212 UTC
+* Flüge: 0
+* Leermasse: 0.21 kg
+* Startgewicht: 1.213 kg
+* Tank
+  * Flaschen: 1x Coca Cola 1.5 L 
+  * Durchmesser: 90 mm
+  * Gewicht: 100 g
+  * Volumen: 3 L  
+  Beide Flaschen mit [Ponal HV860](https://www.amazon.de/Ponal-Pur-12-PUR-Leim-Flasche/dp/B000U40L28/ref=asc_df_B000U40L28/) verklebt.  
+  ![Graphik](example.png)
+* Düse
+  * Typ: Gardena Anschluss
+  * kleinster Durchmesser: 9 mm
+  * Gewicht: 15 g
+  * Kontraktionsbeiwert: 1
+* Steuerung 
+  * passiv 
+    * Finnen
+* Reusability
+  * Art: Fallschirm
+  * Form: Quadratisch
+  * Fläche: 0.25 m^2
+  * Effektive Fläche: 0.18 m^2
+  * Gewicht (mit Verkleidung und Auslösung): 50 g
+* Startrampe
+  * Alan 1
+
+## Flüge
+
+| Flug | Datum      | Dauer (sec) | Höhe (meter) | Video    |
+| ---- | ---------- | ----------- | ------------ | -------- |
+| 1    | 01-05-2020 | 12.4        | 65           | file.mp4 |
+
+## Tests
+
+### Drucktest
+
+01-01-2000
+* Platzte bei 15 bar.
+[Video](RapidDisasembly.mp4)
