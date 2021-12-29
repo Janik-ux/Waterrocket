@@ -41,8 +41,6 @@ wasservolumen = initialwasservolumen
 print("Wasservolumen: " + str(wasservolumen))
 Strecke = 0
 
-print(initialpressure*initialLuftvolumen/gesamtvolumen)
-
 # powered ascend
 # loop for sum function
 while second <= breakSecond and masse>=0:
@@ -60,7 +58,9 @@ while second <= breakSecond and masse>=0:
 
     # auswerten:                                                                                                                                                              Vrakete            Vwasser            beschleunigung            twr            austrMasse            austrVolumen            masse            pressure
     print("----------Sekunde: {}----------".format(second))
-    print("Vrakete: {} m/s,\nVwasser: {} m/s,\nbeschleunigung: {} m/s^2,\nbeschleunigung ohne g: {} m/s^2,\nTWR: {},\naustrMasse: {} kg,\naustrVolumen: {} m^3,\nmasse: {} kg,\npressure: {} bar,\nluftvolumen: {} m^3,\nwasservolumen: {} m^3\n".format(round(Vrakete, 2), round(Vwasser, 2), round(beschleunigung, 2), round(beschleunigung+constants.g*step, 2), round(twr, 2), round(austrMasse, 2), round(austrVolumen, 5), round(masse, 2), round(pressure/10**5, 2), round(luftvolumen, 5), round(wasservolumen, 5)))
+    print("Vrakete: {} m/s,\nVwasser: {} m/s,\nbeschleunigung: {} m/s^2,\nbeschleunigung ohne g: {} m/s^2,\nTWR: {},\naustrMasse: {} kg,\naustrVolumen: {} m^3,\nmasse: {} kg,\npressure: {} bar,\nluftvolumen: {} m^3,\nwasservolumen: {} m^3\n".format(round(Vrakete, 2), round(Vwasser, 2), round(beschleunigung, 2), round(beschleunigung+constants.g*step, 7), round(twr, 7), round(austrMasse, 2), round(austrVolumen, 5), round(masse, 2), round(pressure/10**5, 2), round(luftvolumen, 5), round(wasservolumen, 5)))
+
+    # break
     x_list.append(second)
     twr_list.append(twr)
     Vrakete_list.append(Vrakete)

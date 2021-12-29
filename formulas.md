@@ -70,6 +70,14 @@ So ergibt sich nun die Geschwindigkeit $v_{Rakete}$ aus der gleichmäßig beschl
 
 Allerdings haben wir bei der Wasserrakete eine ungleichmäßig beschleunigte Bewegung vorliegen, da sich der innere Druck und die Masse der Rakete über die Zeit $t$ ändern.
 
-## programmatischer Ansatz
-$$a_{Rakete}(t) = $$
-$$v_{Rakete}=\sum_{k=0}^n a(t) $$
+## Programm
+
+$$v_{Wasser}=\sqrt{\frac{2*(p_{Innen}-p_{Umgebung})}{\rho_{Wasser}}} = m/s$$
+$$V_{aus}=A_{Düse}*v_{Wasser}*\Delta{t}=m^2*m/s*s=m^3$$
+
+$$m_{aus}=V_{aus}*\rho_{Wasser}=m^3*kg/m^3=kg$$
+$$F_{Thrust}=m_{aus}*v_{wasser}=kg*m/s = N$$
+$$TWR=\frac{F_{Thrust}}{m_{Rakete}*g}$$
+$$a_{Rakete}=\frac{F_{Thrust}}{m_{Rakete}}*\Delta{t} - constants.g*step$$
+   Vrakete       -= beschleunigung
+    Strecke       += Vrakete*step
