@@ -14,7 +14,7 @@ Zweiter Test der Fanta1 mit anderem Klebstoff.
   * Durchmesser: 90 mm
   * Gewicht: - g
   * Volumen: - L  
-  BEide Flaschen [Soudal Fix All Crystal](https://www.soudal.de/diy/produkte/fix-all/fix-all/fix-all-crystal) verklebt.  
+  Beide Flaschen [Soudal Fix All Crystal](https://www.soudal.de/diy/produkte/fix-all/fix-all/fix-all-crystal) verklebt.  
   Technik wie Fanta1: [Fanta1 Klebung](../WaterrocketMedia/construction/tanks/Fanta1_tank.png)
 * Düse
   * Typ: Gardena Anschluss
