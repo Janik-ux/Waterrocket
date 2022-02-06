@@ -19,7 +19,7 @@ v2
 minimum 8 ventile
 
 v3
-komplizierter
+komplizierter warum?
 6 düsen
 1, 4 +roll
 2, 5 -roll
