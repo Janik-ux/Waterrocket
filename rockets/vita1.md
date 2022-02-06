@@ -1,8 +1,8 @@
 # Vita 1
 
-more a pathfinder.
+More a pathfinder.
 
-## technische Daten
+## Technische Daten
 
 * Baustart: 28-12-2021
 * erster Start: 12-12-2012 1212 UTC
@@ -14,7 +14,7 @@ more a pathfinder.
   * Durchmesser: 90 mm
   * Gewicht: 100 g
   * Volumen: 3 L  
-  Beide Flaschen mit [Ponal HV860](https://www.amazon.de/Ponal-Pur-12-PUR-Leim-Flasche/dp/B000U40L28/ref=asc_df_B000U40L28/) verklebt.  
+  Beide Flaschen mit [Ponal HV860](https://www.amazon.de/Ponal-Pur-12-PUR-Leim-Flasche/dp/B000U40L28/ref=asc_df_B000U40L28/) verklebt.
   [Graphik](../WaterrocketMedia/construction/tanks/Vita1_tank.png) <!-- vlt anzeigen, war aber so groß -->
 * Düse
   * Typ: Gardena Anschluss
@@ -27,18 +27,20 @@ more a pathfinder.
 * Steuerung  
   * 4 Leitwerke, passiv
     * Form: [S1](../Waterrocketmedia/construction/fins/S1.jpeg)
-* Reusability
+* Reusability (geplant)
   * Art: Fallschirm
   * Form: Quadratisch
   * Fläche: 0.25 m^2 ?
   * Effektive Fläche: ???
-  * Gewicht (mit Verkleidung und Auslösung): ??
-  Oben auf der Raket montiert. Auslösung durch Tommy-Timer.  
+  * Gewicht (mit Verkleidung und Auslösung): ??  
+  Oben auf der Rakete montiert. Auslösung durch Tommy-Timer.  
   ![Fallschirmhalterung]() <!--TODO-->
 * Startrampe
   * Alan 1
 
 ## Flüge
+
+Vita1 kam nie über den Drucktest hinaus, da die Klebenaht am Tank nicht dicht war.
 
 | Flug | Datum | Dauer (sec) | Höhe (meter) | Video |
 | ---- | ----- | ----------- | ------------ | ----- |

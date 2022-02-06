@@ -1,3 +1,5 @@
+Siehe RCS-hydrkin-sketch.jpeg
+
 v1
 8 düsen
 1,5     +roll
@@ -28,4 +30,3 @@ komplizierter warum?
 3    +yaw
 6    -yaw
 minimum 6 ventile
-
