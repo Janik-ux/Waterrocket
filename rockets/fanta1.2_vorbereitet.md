@@ -1,24 +1,26 @@
-# Fanta 1
+# Fanta 1.1
+
+Zweiter Test der Fanta1 mit anderem Klebstoff.
 
 ## technische Daten
 
-* Baustart: 2021-12-28
+* Baustart: 2022-3-13
 * erster Start: -
 * Flüge: 0
 * Leermasse: - kg
 * Startgewicht: - kg
 * Tank
-  * Flaschen: 2x Fanta 1.5 L
+  * Flaschen: 2x Fanta 1.5 L; Die Alten Tanks von [Fanta1](fanta1.md), um die alte Klebenaht gekürzt. <!-- TODO Welche Flaschen wurden benutzt?-->
   * Durchmesser: 90 mm
-  * Gewicht: 100 g
-  * Volumen: 3 L  
-  Beide Flaschen mit [Ponal HV860](https://www.amazon.de/Ponal-Pur-12-PUR-Leim-Flasche/dp/B000U40L28/ref=asc_df_B000U40L28/) verklebt.
-  [Graphik](../WaterrocketMedia/construction/tanks/Fanta1_tank.png)
+  * Gewicht: - g
+  * Volumen: - L  
+  Beide Flaschen [Pattex PL Premium fixation](https://www.pattex.de/de/pro/produkte/montagekleber/pl-premium-high-tack.html) verklebt.  
+  Technik wie Fanta1: [Fanta1 Klebung](../WaterrocketMedia/construction/tanks/Fanta1_tank.png)
 * Düse
   * Typ: Gardena Anschluss
   * kleinster Durchmesser: 9 mm
   * Gewicht: 15 g
-  * Kontraktionsbeiwert: 1
+  * Kontraktionsbeiwert: 1  
   Über normales PET-Gewinde mit Flasche verbunden.  
   [Seitenansicht Duese](../WaterrocketMedia/construction/engines/duese_metric_view.jpeg)
 * Steuerung  
@@ -36,8 +38,6 @@
 
 ## Flüge
 
-Fanta1 absolvierte keine Flüge, der Drucktank war an der KLebenaht nicht dicht.
-
 | Flug | Datum | Dauer (sec) | Höhe (meter) | Video |
 | ---- | ----- | ----------- | ------------ | ----- |
 | -    | -     | -           | -            | -     |
@@ -48,4 +48,4 @@ Fanta1 absolvierte keine Flüge, der Drucktank war an der KLebenaht nicht dicht.
 
 | Test | Datum      | Max bar | Bemerkung |
 | ---- | ---------- | ------- | --------- |
-| 1    | 2021-12-30 | ~4       | Wasser spritzt an Klebenaht raus, es knackt und bei höherem Druck spritzt es noch mehr. Über 4 bar kann schlussendlich nicht mehr geleistet werden, da der Masseabstrom zu groß ist. |
+| 1    | 2022-3-13  | ~?      | Kleber zeigt keinerlei Wirkung, die obere Flasche ploppt sofort ab. |

@@ -2,17 +2,17 @@
 
 ## technische Daten
 
-* Baustart: 5-2-2022
+* Baustart: 2022-3-13
 * erster Start: -
 * Flüge: 0
 * Leermasse: - kg
 * Startgewicht: - kg
 * Tank
-  * Flaschen: 2x Volvic 0.9L
+  * Flaschen: 2x Volvic 0.9L; Die Alten Tanks von [Volve1](volve1.md) (Kleber entfernt).
   * Durchmesser: - mm
   * Gewicht: - g
   * Volumen: - L  
-  Beide Flaschen mit [Soudal Fix All Crystal](https://www.soudal.de/diy/produkte/fix-all/fix-all/fix-all-crystal) verklebt.  
+  Beide Flaschen mit [Pattex PL Premium fixation](https://www.pattex.de/de/pro/produkte/montagekleber/pl-premium-high-tack.html) verklebt.  
   Technik wie Fanta1: [Fanta1 Klebung](../WaterrocketMedia/construction/tanks/Fanta1_tank.png)
 * Düse
   * Typ: Gardena Anschluss
@@ -41,4 +41,4 @@
 
 | Test | Datum      | Max bar | Bemerkung |
 | ---- | ---------- | ------- | --------- |
-| 1    | ?-2-2022 | ~2       | Kleber zeigt keinerlei Wirkung, die obere Flasche ploppt sofort ab. |
+| 1    | 2022-3-13  | ~?       | Kleber zeigt keinerlei Wirkung, die obere Flasche ploppt sofort ab. |

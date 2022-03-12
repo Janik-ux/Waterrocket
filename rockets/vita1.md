@@ -5,7 +5,7 @@ More a pathfinder.
 ## Technische Daten
 
 * Baustart: 28-12-2021
-* erster Start: 12-12-2012 1212 UTC
+* erster Start: -
 * Flüge: 0
 * Leermasse: - kg
 * Startgewicht: - kg
@@ -52,4 +52,4 @@ Vita1 kam nie über den Drucktest hinaus, da die Klebenaht am Tank nicht dicht w
 
 | Test | Datum      | Max bar | Bemerkung |
 | ---- | ---------- | ------- | --------- |
-| 1    | 30-12-2021 | 4       | Wasser spritzt an Klebenaht raus, es knackt und bei höherem Druck spritzt es noch mehr. Über 4 bar kann schlussendlich nicht mehr geleistet werden, da der Masseabstrom zu groß ist. |
+| 1    | 2021-12-30 | 4       | Wasser spritzt an Klebenaht raus, es knackt und bei höherem Druck spritzt es noch mehr. Über 4 bar kann schlussendlich nicht mehr geleistet werden, da der Masseabstrom zu groß ist. |

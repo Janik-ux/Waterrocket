@@ -10,7 +10,7 @@ Zweiter Test der Fanta1 mit anderem Klebstoff.
 * Leermasse: - kg
 * Startgewicht: - kg
 * Tank
-  * Flaschen: 2x Fanta 1.5 L; Die Alten Tanks von [Fanta1](fanta1.md) um die alte Klebenaht gekürzt.
+  * Flaschen: 2x Fanta 1.5 L; Die Alten Tanks von [Fanta1](fanta1.md), um die alte Klebenaht gekürzt.
   * Durchmesser: 90 mm
   * Gewicht: - g
   * Volumen: - L  
@@ -20,9 +20,9 @@ Zweiter Test der Fanta1 mit anderem Klebstoff.
   * Typ: Gardena Anschluss
   * kleinster Durchmesser: 9 mm
   * Gewicht: 15 g
-  * Kontraktionsbeiwert: 1
+  * Kontraktionsbeiwert: 1  
   Über normales PET-Gewinde mit Flasche verbunden.  
-  [Seitenansicht Duese](https://github.com/Janik-ux/Waterrocket/raw/main/WaterrocketMedia/construction/engines/duese_metric_view.jpeg)
+  [Seitenansicht Duese](../WaterrocketMedia/construction/engines/duese_metric_view.jpeg)
 * Steuerung  
   * keine
 * Reusability
@@ -38,7 +38,7 @@ Zweiter Test der Fanta1 mit anderem Klebstoff.
 
 ## Flüge
 
-Fanta1 absolvierte keine Flüge, der Drucktank war an der KLebenaht nicht dicht.
+Fanta1 absolvierte keine Flüge, der Drucktank war an der Klebenaht nicht dicht.
 
 | Flug | Datum | Dauer (sec) | Höhe (meter) | Video |
 | ---- | ----- | ----------- | ------------ | ----- |
@@ -50,4 +50,4 @@ Fanta1 absolvierte keine Flüge, der Drucktank war an der KLebenaht nicht dicht.
 
 | Test | Datum      | Max bar | Bemerkung |
 | ---- | ---------- | ------- | --------- |
-| 1    | 30-12-2021 | ~4       | Wasser spritzt an Klebenaht raus, es knackt und bei höherem Druck spritzt es noch mehr. Über 4 bar kann schlussendlich nicht mehr geleistet werden, da der Masseabstrom zu groß ist. |
+| 1    | ?-2-2022   | ~2      | Kleber zeigt keinerlei Wirkung, die obere Flasche ploppt sofort ab. |
