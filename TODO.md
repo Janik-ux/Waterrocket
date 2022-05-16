@@ -7,3 +7,4 @@
 - [X] Grafik für die Klebung Fanta 1 Zeichnen
 - [ ] Einrichtung für Triebwerksdrucktest bauen/recherchieren
 - [X] Links in markdown auf relativ ändern.
+- [ ] Wo kommen die Komplexen Zahlen her -> calc2_work.py

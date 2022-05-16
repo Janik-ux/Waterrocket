@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 rho_W = 997  # kg/m^3
 V_T = 0.0015 # m^3   1.5l = 1.5dm³ /1000 = 0.0015m³ Eine Flasche
-m_W_s = 5  # kg  Zu einem Drittel gefüllt
+m_W_s = 0.5  # kg  Zu einem Drittel gefüllt
 V_W_s = m_W_s / rho_W # m^3 = kg/kg/m^3
 R = 8.3145   # J/(mol*K) Reynoldzahl
 M = 0.028949 # kg/mol Molmasse Luft
@@ -12,7 +12,7 @@ p_A = 1*10**5 # Außendruck
 p_P = 12*10**5 # Pumpendruck, den man aufpumpt
 p_0 = p_A+p_P # Pa Gesamtdruck, also Luftpumpenablesung plus 1
 m_L_s = (V_T - V_W_s)*((p_0*M)/(R*T)) # kg
-d_D = 2      # mm Düsendurchmesser
+d_D = 5      # mm Düsendurchmesser
 A_D = 1/4*math.pi*(d_D/1000)**2  # m^2 = 1/4*pi*(mm/1000=m^2)
 g = 9.81
 
@@ -40,7 +40,7 @@ m_R = m_R_s # Masse Rakete
 V_W = V_W_s # Volumen Wasser
 m_L = m_L_s # Masse Luft
 t = 0
-while t < max_t:
+while t < max_t: # and float(h_R) > -0.5
     rho_L = (m_L)/(V_T-V_W)
     p_L = (rho_L*R*T)/M
 
@@ -50,7 +50,7 @@ while t < max_t:
         # m^3 = m/s * m^2 * s
         dV_W = (v_str*A_D*dt) # Volumenabfluss des Wassers
         # m/s = m^3*kg/m^3*m/s/kg
-        dv_R = ((dV_W*rho_W*v_str)/m_R) # - g*dt # Geschwindigkeitszuwachs
+        dv_R = ((dV_W*rho_W*v_str)/m_R) - g*dt # Geschwindigkeitszuwachs
         
         
         V_W -= dV_W
@@ -62,7 +62,7 @@ while t < max_t:
         # kg = m/s*m^2*s*kg/m^3
         dm_L = (v_str*A_D*dt*rho_L)
         # m/s = m^3*kg/m^3*m/s/kg
-        dv_R = ((dm_L*v_str)/m_R) # - g*dt # Geschwindigkeitszuwachs
+        dv_R = ((dm_L*v_str)/m_R) - g*dt # Geschwindigkeitszuwachs
 
         m_L -= dm_L
         m_R -= dm_L
