@@ -1,6 +1,6 @@
 """
 calc2_v1.0.0.py 
-(c) 2022 Janik Victor
+(c) 2022 Janik-ux
 licensed under MIT license
 
 This program simulates the one dimensional flight of a waterrocket.
