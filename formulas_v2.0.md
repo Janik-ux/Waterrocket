@@ -47,4 +47,4 @@ Vom Druck wird $p_A$ subtrahiert, da für $v_{Str}$ der relative Druck zur Umgeb
 In die Gleichung zum Volumenstrom eingesetzt und vereinfacht ergibt sich:
 $$\frac{dV_W}{dt}=\frac{\sqrt{2}\sqrt{\frac{m_L*R*T}{V_TM-V_WM}-p_A}A_D}{\sqrt{\rho_W}} \tag{3}$$
 Nun werden die Veränderlichen $m_W$ und $t$ getrennt und es kann integriert werden.
-$$\int_{V_s}^V\frac{1}{\sqrt{\frac{m_L*R*T}{V_TM-V_WM}-1*10^5}}dV_W=\int_0^t\frac{\sqrt{2}}{\sqrt{\rho_W}}dt\tag{4.1}$$ 
+$$\int_{V_s}^V\frac{1}{\sqrt{\frac{m_L*R*T}{V_TM-V_WM}-1*10^5}}dV_W=\int_0^t\frac{\sqrt{2}}{\sqrt{\rho_W}}dt\tag{4.1}$$
