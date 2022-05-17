@@ -1,5 +1,5 @@
 """
-calc2_v1.0.0.py 
+calc2_v1.0.1.py 
 (c) 2022 Janik-ux
 licensed under MIT license
 
