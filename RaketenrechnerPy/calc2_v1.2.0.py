@@ -34,10 +34,11 @@ V_T   = 0.0015 # m^3 Tankvolumen (1.5l = 1.5dm³ /1000 = 0.0015m³)
 m_W_s = 0.5  # kg Masse Füllwasser
 m_Struktur = 0.15 # kg Masse der leeren Flasche
 m_Nutz     = 0 # Masse der Nutzlast
-p_P   = 0*10**5 # Pumpendruck, den man aufpumpt
+p_P   = 6*10**5 # Pumpendruck, den man aufpumpt
 A_R   = 0.00785 # m^2 1/4*pi*(10cm/100)^2 = m^2 Fläche der Rakete in Strömungsrichtung
 d_D   = 4      # mm Düsendurchmesser
-c_w_R = 0.2 # Luftwiderstandsbeiwert der Rakete
+c_w_R = 0.1 # Luftwiderstandsbeiwert der Rakete
+# cw hieraus entnommen: https://www.dlr.de/schoollab/Portaldata/24/Resources/dokumente/go/14.8.02_Ankuendigung.pdf
 h_start = 0 # m über Boden
 
 # Einstellungen
