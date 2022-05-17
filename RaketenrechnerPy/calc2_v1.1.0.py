@@ -64,7 +64,7 @@ m_L = m_L_s # Masse Luft
 t   = 0
 
 # Schleife für numerische Integration über dt (Ich hab keine Ahnung was das ist, aber klingt gut)
-while t < max_t and h_R>=0: # and float(h_R) > -0.5
+while t < max_t and h_R>=0:
     rho_L = (m_L)/(V_T-V_W) # Dichte des Wassers bei gegebenem Volumen
     p_L = round((rho_L*R*T)/M, 10) # round because of the division problem of a computer (1.00000000001)
 
