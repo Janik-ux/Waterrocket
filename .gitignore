@@ -1,2 +1,3 @@
 *.lnk
 calc2_work.py
+__pycache__
