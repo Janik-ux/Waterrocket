@@ -15,21 +15,21 @@ import rock2_v1_1_0 as rock2
 
 # Wie viel Wasser ist sinnvoll (Druck immer gleich)
 #
-V_T = 0.01  # 10 Liter Flasche 💪
-step_m = 0.1 # kg Stepsize Wasser
-range_m = int((V_T * 1000) / step_m)
-x = []
-y = []
-for i in range(range_m):
-    m_W_s = step_m * i
-    res = rock2.calc(m_W_s=m_W_s, p_P=6*10**5, V_T=V_T, verbose=False)
-    print(m_W_s, res['max_height'])
-    x.append(m_W_s)
-    y.append(res['max_height'])
+# V_T = 0.01  # 10 Liter Flasche 💪
+# step_m = 0.1 # kg Stepsize Wasser
+# range_m = int((V_T * 1000) / step_m)
+# x = []
+# y = []
+# for i in range(range_m):
+#     m_W_s = step_m * i
+#     res = rock2.calc(m_W_s=m_W_s, p_P=6*10**5, V_T=V_T, verbose=False)
+#     print(m_W_s, res['max_height'])
+#     x.append(m_W_s)
+#     y.append(res['max_height'])
 
-plt.plot(x, y)
-plt.title("Wasser(l) vs. Höhe")
-plt.show()
+# plt.plot(x, y)
+# plt.title("Wasser(l) vs. Höhe")
+# plt.show()
 
 ###############################################################################
 
@@ -83,10 +83,12 @@ plt.show()
 # for i in range(30):
 #     d = i
 #     res = rock2.calc(d_D=d, c_w_R=0.3)
-#     print(d, res['max_height'])
+#     # print(d, res['max_height'])
 #     x.append(d)
 #     y.append(res['max_height'])
+#     # y.append(res["max_twr"])
 
+# print(y)
 # plt.plot(x, y)
 # plt.title("Düse (mm) vs. Höhe")
 # plt.show()
@@ -96,44 +98,54 @@ plt.show()
 # wasser und Druck vs Höhe
 # egal wie der Druck ist, 0.5 Wasser scheint immer ganz gut sein
 # bei niedrigeren Drücken, etwas weniger Wasser.
-# max_w = 15 # Deziliter aka 0.1kg
+# max_w = 15 # Deziliter aka 0.1kg um int bei Druck zu haben has to be int!
 # max_p = 20 # bar
 # data = [[0] * max_w for i in range(max_p)]
+# print(data)
 # for i in range(max_p):
 #     for j in range(max_w):
 #         p_P = i * 10**5
 #         m_W_s = j * 0.1
 
-#         res = rock2.calc(p_P=p_P, m_W_s=m_W_s)
-#         # print(p_P, m_W_s, res['max_height'])
+#         res = rock2.calc(p_P=p_P, m_W_s=m_W_s, verbose=False)
 #         data[i][j] = res['max_height']
 
 # plt.imshow(data)
 # plt.title("Druck und Wasser vs. Höhe")
+# plt.xlabel("Wasser (Deziliter)")
+# plt.ylabel("Druck (bar)")
+# cbar = plt.colorbar()
+# cbar.set_label('Höhe (m)')
+
 # plt.show()
 
 
 ###############################################################################
 
 # Düse und cw-Wert vs Höhe
-#
-# max_d = 30  # mm Düsendurchmesser
-# max_cw = 1  # cw-Wert
-# d_cw = 0.05  # cw-Wert Stepsize
-# range_cw = int(max_cw / d_cw)
-# data = [[0] * max_d for i in range(range_cw)]
-# for i in range(range_cw):
-#     for j in range(max_d):
-#         cw = i * d_cw
-#         d = j
 
-#         res = rock2.calc(d_D=d, c_w_R=cw, verbose=False, p_P=6*10**5, m_W_s=0.5,)
-#         print(i,j, d, cw, res['max_height'])
-#         data[i][j] = res['max_height']
+max_d = 30  # mm Düsendurchmesser
+max_cw = 1  # cw-Wert
+d_cw = 0.05  # cw-Wert Stepsize
+range_cw = int(max_cw / d_cw)
+data = [[0] * max_d for i in range(range_cw)]
+for i in range(range_cw):
+    for j in range(max_d):
+        cw = i * d_cw
+        d = j
 
-# plt.imshow(data)
-# plt.title("Düse und cw vs. Höhe")
-# plt.show()
+        res = rock2.calc(d_D=d, c_w_R=cw, verbose=False, p_P=6*10**5, m_W_s=0.5,)
+        print(i,j, d, cw, res['max_height'])
+        data[i][j] = res['max_height']
+
+print(data)
+plt.imshow(data, extent=[0, max_d, 0, max_cw], aspect=max_d/max_cw)
+plt.title("Düse und cw vs. Höhe")
+plt.xlabel("Durchmesser Düse (mm)")
+plt.ylabel("cw Rakete")
+cbar = plt.colorbar()
+cbar.set_label('Höhe (m)')
+plt.show()
 
 ###############################################################################
 
