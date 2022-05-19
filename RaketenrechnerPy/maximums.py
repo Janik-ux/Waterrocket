@@ -139,7 +139,7 @@ for i in range(range_cw):
         data[i][j] = res['max_height']
 
 print(data)
-plt.imshow(data, extent=[0, max_d, 0, max_cw], aspect=max_d/max_cw)
+plt.imshow(data, extent=[0, max_d, max_cw, 0], aspect=max_d/max_cw)
 plt.title("Düse und cw vs. Höhe")
 plt.xlabel("Durchmesser Düse (mm)")
 plt.ylabel("cw Rakete")
