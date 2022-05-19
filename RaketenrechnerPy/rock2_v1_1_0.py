@@ -10,7 +10,7 @@ import math
 # evtl panda benutzen
 
 
-def calc(dt=0.001, m_W_s=0.5, p_P=6*10**5, d_D=4, debug=False, verbose=True) -> dict:
+def calc(dt=0.001, m_W_s=0.5, p_P=6*10**5, d_D=4, c_w_R=0.2, V_T=0.0015, debug=False, verbose=True) -> dict:
     # "naturkonstanten" und Umwelteinflüsse
     R     = 8.3145   # J/(mol*K) Reynoldzahl
     M     = 0.028949 # kg/mol Molmasse Luft
@@ -21,14 +21,14 @@ def calc(dt=0.001, m_W_s=0.5, p_P=6*10**5, d_D=4, debug=False, verbose=True) -> 
     T     = 293.15   # K entspricht 20°C
 
     # Raketenspezifikationen
-    V_T   = 0.0015 # m^3 Tankvolumen (1.5l = 1.5dm³ /1000 = 0.0015m³)
+    # V_T   = 0.0015 # m^3 Tankvolumen (1.5l = 1.5dm³ /1000 = 0.0015m³)
     # m_W_s = 0.5  # kg Masse Füllwasser
     m_Struktur = 0.15 # kg Masse der leeren Flasche
     m_Nutz     = 0 # Masse der Nutzlast
     # p_P   = 6*10**5 # Pumpendruck, den man aufpumpt
     A_R   = 0.00785 # m^2 1/4*pi*(10cm/100)^2 = m^2 Fläche der Rakete in Strömungsrichtung
     # d_D   = 4      # mm Düsendurchmesser
-    c_w_R = 0.2 # Luftwiderstandsbeiwert der Rakete
+    # c_w_R = 0.2 # Luftwiderstandsbeiwert der Rakete
 
     # Einstellungen
     # dt         = 0.001 # 0.001 reicht imho aus. the smaller, the longer the program is running
