@@ -180,6 +180,7 @@ def calc(dt=0.001, m_W_s=0.5, p_P=6*10**5, d_D=4, c_w_R=0.2, V_T=0.0015, debug=F
       # print(p_L_list)
 
     max_height = max(h_R_list)
+    max_twr = max(twr_list)
     if verbose:
         print('Max Höhe:', max_height)
     return {
@@ -189,5 +190,6 @@ def calc(dt=0.001, m_W_s=0.5, p_P=6*10**5, d_D=4, c_w_R=0.2, V_T=0.0015, debug=F
         'v_R_list': v_R_list,
         'h_R_list': h_R_list,
         'a_R_Luft_list': a_R_Luft_list,
-        'twr_list': twr_list
+        'twr_list': twr_list,
+        'max_twr': max_twr
         }
