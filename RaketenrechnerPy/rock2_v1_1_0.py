@@ -188,5 +188,6 @@ def calc(dt=0.001, m_W_s=0.5, p_P=6*10**5, d_D=4, c_w_R=0.2, V_T=0.0015, debug=F
         'a_R_list': a_R_list,
         'v_R_list': v_R_list,
         'h_R_list': h_R_list,
-        'a_R_Luft_list': a_R_Luft_list
+        'a_R_Luft_list': a_R_Luft_list,
+        'twr_list': twr_list
         }
