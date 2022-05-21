@@ -1,6 +1,6 @@
-/* body {
-    
-} */
+body {
+    margin: 3%;
+}
 h1 {
     text-align: center;
 }
@@ -9,10 +9,6 @@ h1 {
     margin-bottom: 5px;
 }
 
-#graphwrapper {
-    margin-left: 4%;
-    margin-right: 4%;
-}
 
 #calcfield {
     margin-left: 10%;

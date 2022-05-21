@@ -1,46 +1,33 @@
 var heightgraph = null;
 var maxspeedgraph = null;
 
-function calcByPressure(volumen, leergewicht, flaecheDues, flaecheRak, winkel) {
+function calcByPressure(volumen, leergewicht, flaeche) {
     var data = [new Array(), new Array(), new Array()]; // 0: druck, 1: height, 2: maxspeed
     var wasser = 0.3 * volumen;
-    var wasserInKubik = wasser * (10 ** -3)
-    var startmasse = leergewicht + wasser; // + (0.68*(0.012*volumen)); //TODO hier noch Gewicht der Luft vlt.
+    var startmasse = leergewicht + wasser // + (0.68*(0.012*volumen)); //TODO hier noch Gewicht der Luft vlt.
     for (var druck = 0; druck <= 15; druck += 0.2) { // here the data is produced
         druckfixed = druck.toFixed(1);
         data[0].push(druckfixed);
-        var beschlweg;
-        var curdruck = druckfixed;
-        nstep = 0.2;
-        var gesStrecke = 0;
-        var ausgetrWas = 0;
-        var localG = 9.81;
-
-        for (n = 0; n <= 30; n += nstep) { // iterative pulling forward time because i'm too stupid to build a formula
-            n = parseFloat(n.toFixed(1));
-            var curWasser = wasserInKubik - ausgetrWas;
-            if (curWasser < 0) {
-                ausgschw = 0;
-            } else {
-                // is the Vout of Water
-                ausgschw = ((2 * curdruck) / (1000 * (1 - (flaecheDues / flaecheRak) ** 2 + (1 / winkel - 1) ** 2))) ** 0.5; // J
-            }
-            // maths go here in step n
-            StromProN = nstep * flaecheDues * ausgschw; // Massestrom pro step n brauch ich um zu wissen, wieviel menge ausgestoßen wird in der Zeit
-            console.log("strom pro n: " + StromProN);
-            ausgetrWas += StromProN;
-            vraket = ausgschw / (leergewicht / 1000 + (curWasser)); // keine Ahnung, ob volumen oder wassser
-            StreckeProN = (vraket * nstep) - 1 / 2 * localG * (nstep ** 2);
-            gesStrecke += StreckeProN;
-            console.log("strecke pro n: " + StreckeProN);
-            console.log("vraket bei s=" + n + " : " + vraket);
-            console.log("ausgwsch bei s=" + n + " : " + ausgschw);
+        if (druckfixed == 0) {
+            // to avoid infinity we are passing this by hand
+            data[1].push(0);
+            data[2].push(0);
+            continue;
         }
-        beschlweg = gesStrecke; // TODO
-
-        data[1].push((beschlweg).toFixed(2)); // + restweg
-        // data[2].push(maxgeschw);
-        console.log("Gesstrecke: " + gesStrecke);
+        var ausgschw = ((2 * (druckfixed * (10 ** 5))) / 1000) ** 0.5; // all assuming we use water
+        var maxgeschw = ausgschw * Math.log(startmasse / leergewicht) - ((9.81) * (wasser / (1000 * flaeche * ausgschw))); // before "-" is the acceleration up and beyond its the downacceleration
+        var beschlweg = 0.5 * maxgeschw * (wasser * (10 ** -3) / (flaeche * ausgschw));
+        var restweg = 0.5 * maxgeschw * (maxgeschw / 9.81);
+        // console.log("_______nextturn_______");
+        // console.log("ausgschw: " + ausgschw);
+        // console.log("maxgeschw: " + maxgeschw);
+        // console.log("beschlweg: " + beschlweg);
+        // console.log("restweg: " + restweg);
+        // console.log("druck: " + druckfixed);
+        data[1].push((beschlweg + restweg).toFixed(2));
+        data[2].push(maxgeschw);
+        // heightlist.push(ausgschw)
+        // heightlist.push(maxgeschw)
     }
     return data;
 }
@@ -51,27 +38,24 @@ function run() {
     // heightgraphctx.height = 50;
     var leergewicht = document.getElementById("leergewicht").valueAsNumber;
     var volumen = document.getElementById("volumen").valueAsNumber;
-    var flaecheDues = Math.PI * (document.getElementById("durchmesserDues").valueAsNumber / 2) ** 2;
-    var flaecheRak = Math.PI * (document.getElementById("durchmesserRak").valueAsNumber / 2) ** 2;
-    var winkel = document.getElementById("winkel").valueAsNumber;
+    var flaeche = Math.PI * (document.getElementById("durchmesser").valueAsNumber / 2) ** 2;
     console.log('============in run=============');
     console.log("Füllvolumen: " + volumen);
-    console.log("durchmesser: " + document.getElementById("durchmesserDues").valueAsNumber);
-    console.log("fläche: " + flaecheDues);
-    console.log("flächeRak: " + flaecheRak);
+    console.log("durchmesser: " + document.getElementById("durchmesser").valueAsNumber);
+    console.log("fläche: " + flaeche);
 
-    var data = calcByPressure(volumen, leergewicht, flaecheDues, flaecheRak, winkel);
+    var data = calcByPressure(volumen, leergewicht, flaeche);
     var drucklist = data[0];
     var heightlist = data[1];
     var maxspeedlist = data[2];
     console.log("drucklist: " + drucklist);
     console.log("heightlist: " + heightlist);
 
-    // data = calcByPressure(volumen, leergewicht - (leergewicht * 0.1), flaecheDues, flaecheRak);
+    data = calcByPressure(volumen, leergewicht - (leergewicht * 0.1), flaeche);
     var heightlistminus = data[1];
     var maxspeedminus = data[2];
 
-    // data = calcByPressure(volumen, leergewicht + (leergewicht * 0.1), flaecheDues, flaecheRak);
+    data = calcByPressure(volumen, leergewicht + (leergewicht * 0.1), flaeche);
     var heightlistplus = data[1];
     var maxspeedplus = data[2];
 
@@ -203,5 +187,4 @@ function run() {
             }
         }
     });
-    console.log("flächeRak: " + flaecheRak);
 }
