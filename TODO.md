@@ -8,4 +8,3 @@
 - [ ] Einrichtung für Triebwerksdrucktest bauen/recherchieren
 - [X] Links in markdown auf relativ ändern.
 - [X] Wo kommen die Komplexen Zahlen her -> calc2_work.py
-- [ ] Matplotlib Werteübersicht am Rand
