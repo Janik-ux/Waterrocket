@@ -1,0 +1,15 @@
+body {
+    margin: 3%;
+}
+h1 {
+    text-align: center;
+}
+
+.inputfield {
+    margin-bottom: 5px;
+}
+
+
+#calcfield {
+    margin-left: 10%;
+}
