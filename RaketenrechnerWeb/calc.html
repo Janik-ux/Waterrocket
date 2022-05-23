@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <title>Page Title</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="calc_style.css" media="screen" />
 </head>
 
 <body onload="run()">
     <h1>Waterrocketcalculator</h1>
     <div id="calcfield">
-        <button onclick="reset()">reset</button>
         <div class="inputfield">
             <label class="inputname">Strukturmasse (kg)</label>
             <input id="m_Struktur" class="listinput" type="number" value=0.15 step="0.1">
@@ -40,13 +39,21 @@
             <label class="inputname">cW Rakete</label>
             <input id="c_w_R" class="listinput" type="number" value=0.2 step="0.05">
         </div>
-        <button onclick="run()">Do the Math's!'</button>
+        <details id="advanced_properties">
+            <summary>advanced</summary>
+            <div class="inputfield">
+                <label class="inputname">Starthöhe (m)</label>
+                <input id="h_start" class="listinput" type="number" value=0 step="1">
+            </div>
+        </details>
+        <button onclick="run()">Do the maths!</button>
+        <button onclick="reset()">reset</button>
     </div>
     <div>
         <canvas id="outsidesgraph" width="400" height="225"></canvas>
         <canvas id="insidesgraph" width="400" height="225"></canvas>
     </div>
-    <script src="./app.js"></script>
+    <script src="./calc_app.js"></script>
 </body>
 
 </html>

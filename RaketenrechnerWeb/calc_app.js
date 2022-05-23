@@ -15,7 +15,8 @@ function reset() {
         "A_R":"0.00785",
         "p_P":"6",
         "m_W_s":"0.3",
-        "c_w_R":"0.2"
+        "c_w_R":"0.2",
+        "h_start":"0"
     }
     for (const [key, value] of Object.entries(data_presets)) {
         document.getElementById(key).value = value;
@@ -61,7 +62,7 @@ function calc() {
     var A_R = document.getElementById("A_R").valueAsNumber; // m^2
     var d_D = document.getElementById("d_D").valueAsNumber; // mm
     var c_w_R = document.getElementById("c_w_R").valueAsNumber;
-    var h_start = 0; // m über h_Boden
+    var h_start = document.getElementById("h_start").valueAsNumber; // m über h_Boden
 
     // Einstellungen
     var dt = 0.01;

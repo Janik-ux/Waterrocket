@@ -15,7 +15,8 @@ function reset() {
         "A_R":"0.00785",
         "p_P":"6",
         "m_W_s":"0.3",
-        "c_w_R":"0.2"
+        "c_w_R":"0.2",
+        "h_start":"0"
     }
     for (const [key, value] of Object.entries(data_presets)) {
         document.getElementById(key).value = value;
