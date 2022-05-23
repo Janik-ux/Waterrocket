@@ -1,3 +1,3 @@
-# Waterrocket
+# water-rocket
 
-My waterrocket project(s).
+My water rocket project(s).
