@@ -61,7 +61,7 @@ function calc() {
     var A_R = document.getElementById("A_R").valueAsNumber; // m^2
     var d_D = document.getElementById("d_D").valueAsNumber; // mm
     var c_w_R = document.getElementById("c_w_R").valueAsNumber;
-    var h_start = 0; // m über h_Boden
+    var h_start = document.getElementById("h_start").valueAsNumber; // m über h_Boden
 
     // Einstellungen
     var dt = 0.01;
