@@ -1,5 +1,10 @@
+# maximums.py
+# script to optimize the fueling and structure of the waterrocket and understand its behavior
+# (c) 2022 Janik-ux and phillister
+# licensed under MIT public license
+ 
 import matplotlib.pyplot as plt
-import rock2_v1_1_0 as rock2
+import waterrocket_sim as rock2
 # evtl mit numpy arbeiten
 
 ###############################################################################

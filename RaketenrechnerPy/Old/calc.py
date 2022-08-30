@@ -1,9 +1,12 @@
+# altes Berechnungsscript vor calc2
+# (c) 2021 Janik-ux
+
 import scipy.constants as constants
 import math
 import matplotlib.pyplot as plt
 # ----inital data----
 # not to be changed from code itself
-# here configure youir rocket data
+# here configure your rocket data
 dichte      = 1000 # kg/m^3
 wasserfuellanteil = 1/3
 luftfuellanteil = 1-wasserfuellanteil

@@ -1,3 +1,5 @@
 *.lnk
 calc2_work.py
 __pycache__
+*work.py
+apotest.py

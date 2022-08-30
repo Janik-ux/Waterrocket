@@ -1,5 +1,5 @@
 """
-calc2_v1.1.0.py
+water-rocket-sim_v0.0.0.py
 (c) 2022 Janik-ux
 licensed under MIT license
 
