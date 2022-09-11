@@ -48,10 +48,10 @@ Hierbei ist $M$ die molare Masse mit 0.028949kg/mol für trockene Luft, $R$ die 
 Die Dichte der Luft $\rho_L$ ergibt sich aus dem Quotienten der, wie schon erwähnt konstanten, Masse der Luft $m_L$ und dem nicht (mehr) vom Wasser eingenommenen Volumen $V_L = V_T - V_W$. Setzt man dies für $p$ in die umgestellte Bernoulli-Gleichung $v = \sqrt{\frac{2p}{\rho_W}}$ ein, erhält man:
 $$v_{Str} = \sqrt{\frac{2(\frac{\frac{m_L}{V_T-V_W}*R*T}{M}-p_A)}{\rho_W}}\tag{1.1.2}$$
 Vom Druck wird $p_A$ subtrahiert, da für $v_{Str}$ der relative Druck zur Umgebung benötigt wird. Der Geschwindigkeitsbeiwert wurde als 1 angenommen.
-In die Gleichung zum Volumenstrom eingesetzt und vereinfacht ergibt sich:
-$$\frac{dV_W}{dt}=\frac{\sqrt{2}\sqrt{\frac{m_L*R*T}{V_TM-V_WM}-p_A}A_D}{\sqrt{\rho_W}} \tag{1.1.3}$$
+In die Gleichung zum Volumenstrom eingesetzt und mit $k=\frac{m_LRT}{M}$ vereinfacht ergibt sich:
+$$\frac{dV_W}{dt}=\frac{\sqrt{2}\sqrt{\frac{1}{V_T-V_W}k-p_A}A_D}{\sqrt{\rho_W}} \tag{1.1.3}$$
 Nun werden die Veränderlichen $m_W$ und $t$ getrennt und es kann integriert werden.
-$$\int_{V_s}^V\frac{1}{\sqrt{\frac{m_L*R*T}{V_TM-V_WM}-1*10^5}}dV_W=\int_0^t\frac{\sqrt{2}}{\sqrt{\rho_W}}dt\tag{1.1.4}$$
+$$\int\frac{1}{\sqrt{\frac{1}{V_T-V_W}k-p_A}}dV_W=\int\frac{\sqrt{2}A_D}{\sqrt{\rho_W}}dt\tag{1.1.4}$$
 
 ## 2 Apoapsishöhe ohne interne Beschleunigung
 
