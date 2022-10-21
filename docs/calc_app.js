@@ -1,5 +1,5 @@
 /*
-v1.0.0
+v1.1.0
 (c) 2022 Janik-ux
 licensed under MIT license
 
@@ -7,6 +7,36 @@ This program simulates the two dimensional flight of a waterrocket.
 */
 var outsidesgraph = null;
 var insidesgraph = null;
+
+function jump(h){
+    var url = location.href;               //Save down the URL without hash.
+    location.href = "#"+h;                 //Go to the target element.
+    history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+}
+
+function fscreen(btn, element_id) {
+    // make full screen
+    var elem = document.getElementById(element_id);
+    elem.classList.remove("graphwrapper_norm");
+    elem.classList.add("graphwrapper_max");
+    jump(element_id);
+
+    // change button to "leave"
+    btn.setAttribute("onclick", "leave_fscreen(this, '" + element_id + "');");
+    btn.innerHTML = "&#10005;";
+}
+
+function leave_fscreen(btn, element_id) {
+    // make full screen
+    var elem = document.getElementById(element_id);
+    elem.classList.remove("graphwrapper_max");
+    elem.classList.add("graphwrapper_norm");
+    jump("");
+
+    // change button to "fullscreen"
+    btn.setAttribute("onclick", "fscreen(this, '" + element_id + "');");
+    btn.innerHTML = "&#x26F6;";
+}
 
 function reset() {
     data_presets = {
@@ -26,6 +56,7 @@ function reset() {
 function run() {
     h_R_list = calc()
     plot(h_R_list)
+    jump("graphwrapper")
 }
 
 function calc() {
@@ -191,8 +222,8 @@ function calc() {
 }
 
 function plot(data) {
-    var ctx_out = document.getElementById("outsidesgraph").getContext('2d');
-    var ctx_in = document.getElementById("insidesgraph").getContext('2d');
+    var ctx_out = document.getElementById("graph").getContext('2d');
+    // var ctx_in = document.getElementById("insidesgraph").getContext('2d');
     if (outsidesgraph != null) {
         outsidesgraph.destroy();
         outsidesgraph = null;
@@ -203,40 +234,9 @@ function plot(data) {
     }
     outsidesgraph = new Chart(ctx_out, {
         type: 'line',
-        data: {
-            labels: data.t_list,
-            datasets: [{
-                    label: "Höhe Rakete über Boden",
-                    data: data.h_R_list,
-                    fill: false,
-                    borderColor: "red",
-                    borderWidth: 0.75
-                },
-                {
-                    label: "Geschwindigkeit Rakete",
-                    data: data.v_R_list,
-                    fill: false,
-                    borderColor: "blue",
-                    borderWidth: 0.75
-                },
-                {
-                    label: "Beschleunigung Rakete",
-                    data: data.a_R_list,
-                    fill: false,
-                    borderColor: "green",
-                    borderWidth: 0.75                    
-                },
-                {
-                    label: "v Strahl Rakete",
-                    data: data.v_str_list,
-                    fill: false,
-                    borderColor: "black",
-                    borderWidth: 0.75
-                }
-        ]
-        },
         options:{
             responsive: true,
+            maintainAspectRatio: false,
             interaction: {
                 mode: 'index',
                 intersect: false
@@ -268,81 +268,113 @@ function plot(data) {
                     radius: 0
                 }
             }
-        } 
-    });
-
-    // change unit
-    p_L_list = data.p_L_list
-    p_L_list.forEach((p, index, arr) => arr[index] = p/Math.pow(10, 5)-1)
-
-    insidesgraph = new Chart(ctx_in, {
-        type: 'line',
+        },
         data: {
             labels: data.t_list,
             datasets: [{
-                    label: "Masse Rakete",
-                    data: data.m_R_list,
+                    label: "Höhe Rakete über Boden",
+                    data: data.h_R_list,
                     fill: false,
                     borderColor: "red",
                     borderWidth: 0.75
                 },
                 {
-                    label: "Masse Luft in Rakete",
-                    data: data.m_L_list,
+                    label: "Geschwindigkeit Rakete",
+                    data: data.v_R_list,
                     fill: false,
                     borderColor: "blue",
                     borderWidth: 0.75
                 },
                 {
-                    label: "Masse Wasser in Rakete",
-                    data: data.m_W_list,
+                    label: "Beschleunigung Rakete",
+                    data: data.a_R_list,
                     fill: false,
                     borderColor: "green",
                     borderWidth: 0.75                    
                 },
                 {
-                    label: "Überdruck in Rakete (bar)",
-                    data: p_L_list,
+                    label: "v Strahl Rakete",
+                    data: data.v_str_list,
                     fill: false,
                     borderColor: "black",
                     borderWidth: 0.75
                 }
         ]
-        },
-        options:{
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'innere Werte vs time'
-                },
-            },
-            scales: {
-                x: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: 't in secs'
-                    }
-                },
-                y: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: ''
-                    }
-                }
-            },
-            elements: {
-                point:{
-                    radius: 0
-                }
-            }
-        } 
+        }
     });
+
+    // // change unit
+    // p_L_list = data.p_L_list
+    // p_L_list.forEach((p, index, arr) => arr[index] = p/Math.pow(10, 5)-1)
+
+    // insidesgraph = new Chart(ctx_in, {
+    //     type: 'line',
+    //     data: {
+    //         labels: data.t_list,
+    //         datasets: [{
+    //                 label: "Masse Rakete",
+    //                 data: data.m_R_list,
+    //                 fill: false,
+    //                 borderColor: "red",
+    //                 borderWidth: 0.75
+    //             },
+    //             {
+    //                 label: "Masse Luft in Rakete",
+    //                 data: data.m_L_list,
+    //                 fill: false,
+    //                 borderColor: "blue",
+    //                 borderWidth: 0.75
+    //             },
+    //             {
+    //                 label: "Masse Wasser in Rakete",
+    //                 data: data.m_W_list,
+    //                 fill: false,
+    //                 borderColor: "green",
+    //                 borderWidth: 0.75                    
+    //             },
+    //             {
+    //                 label: "Überdruck in Rakete (bar)",
+    //                 data: p_L_list,
+    //                 fill: false,
+    //                 borderColor: "black",
+    //                 borderWidth: 0.75
+    //             }
+    //     ]
+    //     },
+    //     options:{
+    //         responsive: true,
+    //         interaction: {
+    //             mode: 'index',
+    //             intersect: false
+    //         },
+    //         plugins: {
+    //             title: {
+    //                 display: true,
+    //                 text: 'innere Werte vs time'
+    //             },
+    //         },
+    //         scales: {
+    //             x: {
+    //                 display: true,
+    //                 title: {
+    //                     display: true,
+    //                     text: 't in secs'
+    //                 }
+    //             },
+    //             y: {
+    //                 display: true,
+    //                 title: {
+    //                     display: true,
+    //                     text: ''
+    //                 }
+    //             }
+    //         },
+    //         elements: {
+    //             point:{
+    //                 radius: 0
+    //             }
+    //         }
+    //     } 
+    // });
 }
 

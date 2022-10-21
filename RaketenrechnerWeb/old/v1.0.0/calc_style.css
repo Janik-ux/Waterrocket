@@ -1,0 +1,25 @@
+body {
+    margin: 3%;
+}
+h1 {
+    text-align: center;
+}
+
+.inputfield {
+    margin-bottom: 7.5px;
+    width: 350px;
+}
+
+.listinput {
+    width: 100px;
+    float: right;
+    clear: both;
+}
+
+#calcfield {
+    margin-left: 10%;
+}
+
+#advanced_properties {
+    margin-bottom: 7.5px;
+}

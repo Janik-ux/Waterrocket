@@ -1,13 +1,26 @@
+html * {
+    line-height: calc(1ex / 0.32);;
+    font-family: Nunito, sans-serif;
+}
+
+html {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     margin: 3%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
+
 h1 {
     text-align: center;
 }
 
 .inputfield {
     margin-bottom: 7.5px;
-    width: 350px;
+    /* width: 350px; */
 }
 
 .listinput {
@@ -16,10 +29,69 @@ h1 {
     clear: both;
 }
 
-#calcfield {
-    margin-left: 10%;
+#fscreen_btn {
+    top: 8px;
+    right: 16px;
+    font-size: larger;
+    background: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+    
+}
+
+#textwrap {
+    display: inline-block;
+    width: 30%;
+    margin-right: 25px;
+    margin-top: 2%;
+    vertical-align: top;
+
+}
+
+.text {
+    padding: 1%;
 }
 
 #advanced_properties {
     margin-bottom: 7.5px;
+}
+
+#graphwrapper {
+    position: relative;
+}
+
+.graphwrapper_norm {
+    display: inline-block;
+    width: 65%;
+}
+
+.graphwrapper_max {
+    width: 100%;
+    height: 50vw;
+}
+
+#graphwrapper #graph, #fscreen_btn {
+    position: absolute;
+}
+
+@media screen and (max-width: 1000px) {
+    #textwrap, 
+    #graphwrapper {
+        width: 100%;
+    }
+    #graphwrapper {
+        height: 40vh;
+    }
+    #fscreen_btn {
+        display: none;
+    }
+}
+
+footer {
+    padding-top: 20px;
+    width: 100%;
+}
+
+p.copyright {
+    width: 100%;
+    text-align: center;
 }
