@@ -1,5 +1,5 @@
 html * {
-    line-height: calc(1ex / 0.32);;
+    line-height: calc(1ex / 0.32);
     font-family: Nunito, sans-serif;
 }
 
@@ -16,6 +16,11 @@ body {
 
 h1 {
     text-align: center;
+}
+
+h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .inputfield {
@@ -53,6 +58,32 @@ h1 {
 
 #advanced_properties {
     margin-bottom: 7.5px;
+}
+
+.whichshow {
+    display: inline-flex;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.whichshow input {
+    display: none;
+}
+
+.whichshow_checkmark {
+    background-color: #eee;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.whichshow input:checked~.whichshow_checkmark {
+    background-color: #0075aead;
+}
+
+#startbtnwrap {
+    margin-top: 15px;
+    margin-bottom: 30px;
 }
 
 #graphwrapper {
