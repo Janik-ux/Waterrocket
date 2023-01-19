@@ -30,6 +30,10 @@ var plot_presets = {
     "Inner_Air_Pressure": false,
 }
 
+var flight_data
+var xlabel = "Time"
+// Could be changed by button see comment in plot()
+
 function init() {
     // add inputs for the user data
     for (const [key, value] of Object.entries(data_presets)) {
@@ -48,7 +52,7 @@ function init() {
     // add buttons which data to plot
     for (const [key, value] of Object.entries(plot_presets)) {
         html = `<label class="whichshow">
-                    <input type="checkbox" ${value == true ? "checked" : ""} id=${key}>
+                    <input type="checkbox" onclick=plot() ${value == true ? "checked" : ""} id=${key}>
                     <span class="whichshow_checkmark">${key.replace(/_/g, " ")}</span>
                 </label>`
         document.getElementById("plot_inp_header").insertAdjacentHTML("afterend", html);
@@ -96,19 +100,12 @@ function reset() {
     for (const [key, value] of Object.entries(plot_presets)) {
         document.getElementById(key).checked = value;
     }
+    run()
 }
 
 function run() {
-    var data = calc()
-    var plotdata = {}
-    for (const [key, value] of Object.entries(plot_presets)) {
-        if (document.getElementById(key).checked == true) {
-            plotdata[key] = data[key]
-        }
-    }
-    console.log(plotdata)
-    plot(plotdata, data["Time"])
-    jump("graphwrapper")
+    flight_data = calc()
+    plot()
 }
 
 function calc() {
@@ -258,7 +255,7 @@ function calc() {
     }
 
     console.log(`Total Iterations: ${Math.round(t / dt, 0)}`);
-    console.log(Math.max(...h_R_list)) // spread the array into his parts, so max() can better understand it
+    console.log("Max Height:", Math.max(...h_R_list)) // spread the array into his parts, so max() can better understand it
     return {
         "Time": t_list,
         "Height": h_R_list,
@@ -273,10 +270,41 @@ function calc() {
     }
 }
 
-function plot(data, labels) {
-    var ctx_out = document.getElementById("graph").getContext('2d');
+function plot() {
+    // added this xlabel parameter to possibly plot not only in dependence of time but for 
+    // example exhaust velocity by air pressure
+    // TODO entsprechend hinzufügen
 
-    // prepare dataset
+    // reset graph
+    if (outsidesgraph != null) {
+        outsidesgraph.destroy();
+        outsidesgraph = null;
+    }
+    var canvas = document.getElementById("graph")
+    var ctx_out = canvas.getContext('2d')
+
+    // select data to plot
+    var data = {}
+    for (const [key, value] of Object.entries(plot_presets)) {
+        if (document.getElementById(key).checked == true) {
+            data[key] = flight_data[key]
+        }
+    }
+
+    // check if there is no data to plot
+    if (Object.keys(data).length == 0) {
+        console.log("NOTHING TO PLOT!")
+        canvas.style.width = '100%';
+        ctx_out.font = "20px Arial"
+        ctx_out.textAlign = "center"
+        ctx_out.fillText("Nothing to plot :(", canvas.width/2, canvas.height/2)
+        return
+    }
+
+    // select which data to plot at label at x axis
+    var labels = flight_data[xlabel]
+
+    // prepare plotting dataset
     var colorarr = ["red", "green", "black", "blue", "grey"]
     var dataset = []
     for (const [key, value] of Object.entries(data)) {
@@ -292,14 +320,8 @@ function plot(data, labels) {
         colorarr.push(colorarr[0])
         colorarr.splice(0, 1)
     }
-    console.log(data["Time"])
 
-    // reset graph
-    if (outsidesgraph != null) {
-        outsidesgraph.destroy();
-        outsidesgraph = null;
-    }
-
+    
     // plot new graph
     outsidesgraph = new Chart(ctx_out, {
         type: 'line',
@@ -321,15 +343,15 @@ function plot(data, labels) {
                     display: true,
                     title: {
                         display: true,
-                        text: 't in secs'
+                        text: xlabel
                     }
                 },
                 y: {
                     display: true,
                     title: {
                         display: true,
-                        text: 'm'
-                    }
+                    },
+                    // type: "logarithmic",
                 }
             },
             elements: {
@@ -343,5 +365,6 @@ function plot(data, labels) {
             datasets: dataset,
         }
     });
+    jump("graphwrapper")
 }
 
