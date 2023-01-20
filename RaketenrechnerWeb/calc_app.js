@@ -19,15 +19,15 @@ var data_presets = {
 }
 
 var plot_presets = {
-    // str Id & Anzeigename: bool default plotten?
-    "Height": true,
-    "Velocity": true,
-    "Acceleration": true,
-    "Exhaust_Velocity": false,
-    "Mass_Rocket": false,
-    "Inner_Air_Mass": false,
-    "Inner_Water_Mass": false,
-    "Inner_Air_Pressure": false,
+    // str Id & Anzeigename: [bool default plotten?, str yscale]
+    "Height": [true, "dist"],
+    "Velocity": [true, "dist"],
+    "Acceleration": [true, "dist"],
+    "Exhaust_Velocity": [false, "dist"],
+    "Mass_Rocket": [false, "mass"],
+    "Inner_Air_Mass": [false, "mass"],
+    "Inner_Water_Mass": [false, "mass"],
+    "Inner_Air_Pressure": [false, "pres"],
 }
 
 var flight_data
@@ -52,7 +52,7 @@ function init() {
     // add buttons which data to plot
     for (const [key, value] of Object.entries(plot_presets)) {
         html = `<label class="whichshow">
-                    <input type="checkbox" onclick=plot() ${value == true ? "checked" : ""} id=${key}>
+                    <input type="checkbox" onclick=plot() ${value[0] == true ? "checked" : ""} id=${key}>
                     <span class="whichshow_checkmark">${key.replace(/_/g, " ")}</span>
                 </label>`
         document.getElementById("plot_inp_header").insertAdjacentHTML("afterend", html);
@@ -98,7 +98,7 @@ function reset() {
         document.getElementById(key).value = value[0];
     }
     for (const [key, value] of Object.entries(plot_presets)) {
-        document.getElementById(key).checked = value;
+        document.getElementById(key).checked = value[0];
     }
     run()
 }
@@ -285,9 +285,11 @@ function plot() {
 
     // select data to plot
     var data = {}
+    var yscales = [] // which kinds/scale of data will be plot (mass, dist, ...)
     for (const [key, value] of Object.entries(plot_presets)) {
         if (document.getElementById(key).checked == true) {
             data[key] = flight_data[key]
+            yscales.indexOf(value[1]) === -1 && yscales.push(value[1])
         }
     }
 
@@ -304,13 +306,36 @@ function plot() {
     // select which data to plot at label at x axis
     var labels = flight_data[xlabel]
 
+    // set up axes config
+    var AxesConf = {
+        x: {
+            title: {
+                display: true,
+                text: xlabel
+            },
+            //grid: {display: false},
+        }};
+
+    // dynamically add y axes to the sides for different units
+    var wasr = true;
+    for (scaletype of yscales) {
+        AxesConf[scaletype] = {
+            type: 'linear',
+            position: (wasr ? 'left' : 'right'), // split axes evenly to sides
+            // grid: {display: false},
+        }
+        wasr = !wasr
+    }
+    console.log(AxesConf)
+
     // prepare plotting dataset
-    var colorarr = ["red", "green", "black", "blue", "grey"]
+    var colorarr = ["red", "green", "black", "blue", "grey", "violet"]
     var dataset = []
     for (const [key, value] of Object.entries(data)) {
         dataset.push(
             {
                 label: key.replace(/_/g, " "),
+                yAxisID: plot_presets[key][1], 
                 data: value,
                 fill: false,
                 borderColor: colorarr[0],
@@ -321,7 +346,6 @@ function plot() {
         colorarr.splice(0, 1)
     }
 
-    
     // plot new graph
     outsidesgraph = new Chart(ctx_out, {
         type: 'line',
@@ -332,28 +356,7 @@ function plot() {
                 mode: 'index',
                 intersect: false
             },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Werte vs time'
-                },
-            },
-            scales: {
-                x: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: xlabel
-                    }
-                },
-                y: {
-                    display: true,
-                    title: {
-                        display: true,
-                    },
-                    // type: "logarithmic",
-                }
-            },
+            scales: AxesConf,
             elements: {
                 point:{
                     radius: 0
