@@ -1,14 +1,69 @@
 /*
-v1.1.0
-(c) 2022 Janik-ux
+v1.2.0
+(c) 2023 Janik-ux
 licensed under MIT license
 
-This program simulates the two dimensional flight of a waterrocket.
+This program simulates the flight of a waterrocket.
 */
 var outsidesgraph = null;
-var insidesgraph = null;
+var data_presets = {
+    // str Id: [str default val, step, str Anzeigename, bool advanced?]
+    "m_Struktur": ["0.15", "0.1", "Strukturmasse (kg)", false],
+    "V_T": ["1", "0.5", "Tankvolumen (l)", false],
+    "d_D": ["4", "0.5", "Düsendurchmesser (mm)", false],
+    "A_R": ["0.00785", "0.001", "Raketenfläche (m^2)", false],
+    "p_P": ["6", "1", "Pumpendruck (bar)", false],
+    "m_W_s": ["0.3", "0.1", "befüllte Wassermasse (kg)", false],
+    "c_w_R": ["0.2", "0.05", "cW Rakete", false],
+    "h_start": ["0", "10", "Starthöhe (m)", true]
+}
 
-function jump(h){
+var plot_presets = {
+    // str Id & Anzeigename: [bool default plotten?, str yscale]
+    "Height": [true, "dist"],
+    "Velocity": [true, "dist"],
+    "Acceleration": [true, "dist"],
+    "Exhaust_Velocity": [false, "dist"],
+    "Mass_Rocket": [false, "mass"],
+    "Inner_Air_Mass": [false, "mass"],
+    "Inner_Water_Mass": [false, "mass"],
+    "Inner_Air_Pressure": [false, "pres"],
+}
+
+var flight_data
+var xlabel = "Time"
+// Could be changed by button see comment in plot()
+
+function init() {
+    // add inputs for the user data
+    for (const [key, value] of Object.entries(data_presets)) {
+        html = `<div class="inputfield">
+                    <label class="inputname">${value[2]}</label>
+                    <input id="${key}" class="listinput" type="number" value=${value[0]} step=${value[1]}>
+                </div>`
+        if (value[3] == true) {
+            document.getElementById("adv_data_inp_header").insertAdjacentHTML("afterend", html);
+        }
+        else {
+            document.getElementById("data_inp_header").insertAdjacentHTML("afterend", html);
+        }
+    }
+
+    // add buttons which data to plot
+    for (const [key, value] of Object.entries(plot_presets)) {
+        html = `<label class="whichshow">
+                    <input type="checkbox" onclick=plot() ${value[0] == true ? "checked" : ""} id=${key}>
+                    <span class="whichshow_checkmark">${key.replace(/_/g, " ")}</span>
+                </label>`
+        document.getElementById("plot_inp_header").insertAdjacentHTML("afterend", html);
+
+    }
+
+    // compute the values to plot
+    run()
+}
+
+function jump(h) {
     var url = location.href;               //Save down the URL without hash.
     location.href = "#"+h;                 //Go to the target element.
     history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
@@ -19,6 +74,7 @@ function fscreen(btn, element_id) {
     var elem = document.getElementById(element_id);
     elem.classList.remove("graphwrapper_norm");
     elem.classList.add("graphwrapper_max");
+    btn.setAttribute("style", "top: 0px"); // move btn into the field to not exclude it from screen
     jump(element_id);
 
     // change button to "leave"
@@ -31,6 +87,7 @@ function leave_fscreen(btn, element_id) {
     var elem = document.getElementById(element_id);
     elem.classList.remove("graphwrapper_max");
     elem.classList.add("graphwrapper_norm");
+    btn.setAttribute("style", "top: -15px"); // move btn again up a little to not stack it into graph
     jump("");
 
     // change button to "fullscreen"
@@ -39,24 +96,18 @@ function leave_fscreen(btn, element_id) {
 }
 
 function reset() {
-    data_presets = {
-        "m_Struktur": "0.15",
-        "V_T":"1", "d_D":"4",
-        "A_R":"0.00785",
-        "p_P":"6",
-        "m_W_s":"0.3",
-        "c_w_R":"0.2",
-        "h_start":"0"
-    }
     for (const [key, value] of Object.entries(data_presets)) {
-        document.getElementById(key).value = value;
+        document.getElementById(key).value = value[0];
     }
+    for (const [key, value] of Object.entries(plot_presets)) {
+        document.getElementById(key).checked = value[0];
+    }
+    run()
 }
 
 function run() {
-    h_R_list = calc()
-    plot(h_R_list)
-    jump("graphwrapper")
+    flight_data = calc()
+    plot()
 }
 
 function calc() {
@@ -135,8 +186,8 @@ function calc() {
         let p_L = Math.round(rho_L * R * T / M, 10);
 
         if (p_L < p_A(h_R+h_Boden)) {
-            console.log(`p_L < p_A (${p_L})`);
-            console.log(`Druckausgleich nach ${t} Sekunden.`);
+            // console.log(`p_L < p_A (${p_L})`);
+            // console.log(`Druckausgleich nach ${t} Sekunden.`);
             p_L = p_A(h_R+h_Boden);
             rho_L = p_L * M / (R * T);
             m_L = rho_L * V_T;
@@ -194,8 +245,8 @@ function calc() {
 
         if (V_W < 0) {
             dV_W += V_W;
-            console.log(`V_W < 0! (${V_W})`);
-            console.log(`Wasser leer nach ${t} Sekunden`);
+            // console.log(`V_W < 0! (${V_W})`);
+            // console.log(`Wasser leer nach ${t} Sekunden`);
             V_W = 0;
         }
 
@@ -206,32 +257,98 @@ function calc() {
     }
 
     console.log(`Total Iterations: ${Math.round(t / dt, 0)}`);
-    console.log(Math.max(...h_R_list)) // spread the array into his parts, so max() can better understand it
+    console.log("Max Height:", Math.max(...h_R_list)) // spread the array into his parts, so max() can better understand it
     return {
-        t_list: t_list,
-        h_R_list: h_R_list,
-        v_R_list: v_R_list,
-        a_R_list: a_R_list,
-        v_str_list: v_str_list,
-        m_R_list: m_R_list,
-        m_L_list: m_L_list,
-        m_W_list: m_W_list,
-        p_L_list: p_L_list
+        "Time": t_list,
+        "Height": h_R_list,
+        "Velocity": v_R_list,
+        "Acceleration": a_R_list,
+        "Exhaust_Velocity": v_str_list,
+        "Mass_Rocket": m_R_list,
+        "Inner_Air_Mass": m_L_list,
+        "Inner_Water_Mass": m_W_list,
+        "Inner_Air_Pressure": p_L_list
 
     }
 }
 
-function plot(data) {
-    var ctx_out = document.getElementById("graph").getContext('2d');
-    // var ctx_in = document.getElementById("insidesgraph").getContext('2d');
+function plot() {
+    // added this xlabel parameter to possibly plot not only in dependence of time but for 
+    // example exhaust velocity by air pressure
+    // TODO entsprechend hinzufügen
+
+    // reset graph
     if (outsidesgraph != null) {
         outsidesgraph.destroy();
         outsidesgraph = null;
     }
-    if (insidesgraph != null) {
-        insidesgraph.destroy();
-        insidesgraph = null;
+    var canvas = document.getElementById("graph")
+    var ctx_out = canvas.getContext('2d')
+
+    // select data to plot
+    var data = {}
+    var yscales = [] // which kinds/scale of data will be plot (mass, dist, ...)
+    for (const [key, value] of Object.entries(plot_presets)) {
+        if (document.getElementById(key).checked == true) {
+            data[key] = flight_data[key]
+            yscales.indexOf(value[1]) === -1 && yscales.push(value[1])
+        }
     }
+
+    // check if there is no data to plot
+    if (Object.keys(data).length == 0) {
+        console.log("NOTHING TO PLOT!")
+        canvas.style.width = '100%';
+        ctx_out.font = "20px Arial"
+        ctx_out.textAlign = "center"
+        ctx_out.fillText("Nothing to plot :(", canvas.width/2, canvas.height/2)
+        return
+    }
+
+    // select which data to plot at label at x axis
+    var labels = flight_data[xlabel]
+
+    // set up axes config
+    var AxesConf = {
+        x: {
+            title: {
+                display: true,
+                text: xlabel
+            },
+            //grid: {display: false},
+        }};
+
+    // dynamically add y axes to the sides for different units
+    var wasr = true;
+    for (scaletype of yscales) {
+        AxesConf[scaletype] = {
+            type: 'linear',
+            position: (wasr ? 'left' : 'right'), // split axes evenly to sides
+            // grid: {display: false},
+        }
+        wasr = !wasr
+    }
+    console.log(AxesConf)
+
+    // prepare plotting dataset
+    var colorarr = ["red", "green", "black", "blue", "grey", "violet"]
+    var dataset = []
+    for (const [key, value] of Object.entries(data)) {
+        dataset.push(
+            {
+                label: key.replace(/_/g, " "),
+                yAxisID: plot_presets[key][1], 
+                data: value,
+                fill: false,
+                borderColor: colorarr[0],
+                borderWidth: 0.75
+            }
+        )
+        colorarr.push(colorarr[0])
+        colorarr.splice(0, 1)
+    }
+
+    // plot new graph
     outsidesgraph = new Chart(ctx_out, {
         type: 'line',
         options:{
@@ -241,28 +358,7 @@ function plot(data) {
                 mode: 'index',
                 intersect: false
             },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'äußere Werte vs time'
-                },
-            },
-            scales: {
-                x: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: 't in secs'
-                    }
-                },
-                y: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: 'm'
-                    }
-                }
-            },
+            scales: AxesConf,
             elements: {
                 point:{
                     radius: 0
@@ -270,111 +366,10 @@ function plot(data) {
             }
         },
         data: {
-            labels: data.t_list,
-            datasets: [{
-                    label: "Höhe Rakete über Boden",
-                    data: data.h_R_list,
-                    fill: false,
-                    borderColor: "red",
-                    borderWidth: 0.75
-                },
-                {
-                    label: "Geschwindigkeit Rakete",
-                    data: data.v_R_list,
-                    fill: false,
-                    borderColor: "blue",
-                    borderWidth: 0.75
-                },
-                {
-                    label: "Beschleunigung Rakete",
-                    data: data.a_R_list,
-                    fill: false,
-                    borderColor: "green",
-                    borderWidth: 0.75                    
-                },
-                {
-                    label: "v Strahl Rakete",
-                    data: data.v_str_list,
-                    fill: false,
-                    borderColor: "black",
-                    borderWidth: 0.75
-                }
-        ]
+            labels: labels,
+            datasets: dataset,
         }
     });
-
-    // // change unit
-    // p_L_list = data.p_L_list
-    // p_L_list.forEach((p, index, arr) => arr[index] = p/Math.pow(10, 5)-1)
-
-    // insidesgraph = new Chart(ctx_in, {
-    //     type: 'line',
-    //     data: {
-    //         labels: data.t_list,
-    //         datasets: [{
-    //                 label: "Masse Rakete",
-    //                 data: data.m_R_list,
-    //                 fill: false,
-    //                 borderColor: "red",
-    //                 borderWidth: 0.75
-    //             },
-    //             {
-    //                 label: "Masse Luft in Rakete",
-    //                 data: data.m_L_list,
-    //                 fill: false,
-    //                 borderColor: "blue",
-    //                 borderWidth: 0.75
-    //             },
-    //             {
-    //                 label: "Masse Wasser in Rakete",
-    //                 data: data.m_W_list,
-    //                 fill: false,
-    //                 borderColor: "green",
-    //                 borderWidth: 0.75                    
-    //             },
-    //             {
-    //                 label: "Überdruck in Rakete (bar)",
-    //                 data: p_L_list,
-    //                 fill: false,
-    //                 borderColor: "black",
-    //                 borderWidth: 0.75
-    //             }
-    //     ]
-    //     },
-    //     options:{
-    //         responsive: true,
-    //         interaction: {
-    //             mode: 'index',
-    //             intersect: false
-    //         },
-    //         plugins: {
-    //             title: {
-    //                 display: true,
-    //                 text: 'innere Werte vs time'
-    //             },
-    //         },
-    //         scales: {
-    //             x: {
-    //                 display: true,
-    //                 title: {
-    //                     display: true,
-    //                     text: 't in secs'
-    //                 }
-    //             },
-    //             y: {
-    //                 display: true,
-    //                 title: {
-    //                     display: true,
-    //                     text: ''
-    //                 }
-    //             }
-    //         },
-    //         elements: {
-    //             point:{
-    //                 radius: 0
-    //             }
-    //         }
-    //     } 
-    // });
+    jump("graphwrapper")
 }
 

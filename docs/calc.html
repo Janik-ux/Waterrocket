@@ -10,7 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 
-<body onload="run()">
+<body onload="init()">
     <h1>Water-rocket Calculator</h1>
     <div id="textwrap">
         <div id="infotext" class="text">
@@ -22,44 +22,15 @@
             <a href="https://github.com/Janik-ux/water-rocket/blob/b9c1fb4619fb3f78ff92859c5010ddbeb52c2bc3/formulas_v2.0.md">Calculations with a water rocket</a>
         </div>
         <div id="calcfield" class="text">
-            <h4>Here go your values:</h4>
-            <div class="inputfield">
-                <label class="inputname">Strukturmasse (kg)</label>
-                <input id="m_Struktur" class="listinput" type="number" value=0.15 step="0.1">
-            </div>
-            <div class="inputfield">
-                <label class="inputname">Tankvolumen (l)</label>
-                <input id="V_T" class="listinput" type="number" value=1 step="0.5">
-            </div>
-            <div class="inputfield">
-                <label class="inputname">Düsendurchmesser (mm)</label>
-                <input id="d_D" class="listinput" type="number" value=4 step="0.5">
-            </div>
-            <div class="inputfield">
-                <label class="inputname">Raketenfläche (m^2)</label>
-                <input id="A_R" class="listinput" type="number" value=0.00785 step="0.001">
-            </div>
-            <div class="inputfield">
-                <label class="inputname">Pumpendruck (bar)</label>
-                <input id="p_P" class="listinput" type="number" value=6 step="1">
-            </div>
-            <div class="inputfield">
-                <label class="inputname">befüllte Wassermasse (kg)</label>
-                <input id="m_W_s" class="listinput" type="number" value=0.3 step="0.1">
-            </div>
-            <div class="inputfield">
-                <label class="inputname">cW Rakete</label>
-                <input id="c_w_R" class="listinput" type="number" value=0.2 step="0.05">
-            </div>
+            <h4 id="data_inp_header">Here go your values:</h4>
             <details id="advanced_properties">
-                <summary>advanced</summary>
-                <div class="inputfield">
-                    <label class="inputname">Starthöhe (m)</label>
-                    <input id="h_start" class="listinput" type="number" value=0 step="1">
-                </div>
+                <summary id="adv_data_inp_header">advanced</summary>
             </details>
-            <button onclick="run()">Do the maths!</button>
-            <button onclick="reset()">reset</button>
+            <h4 id="plot_inp_header">What should be shown:</h4>
+            <div id="startbtnwrap">
+                <button onclick="run()">Do the maths!</button>
+                <button onclick="reset()">reset</button>
+            </div>
         </div>
     </div>
     <div id="graphwrapper" class="graphwrapper_norm">
@@ -67,8 +38,8 @@
         <button id="fscreen_btn" onclick="fscreen(this, 'graphwrapper')">&#x26F6;</button>
     </div>
     <footer>
-        <p class="copyright">&copy 2022 by <a href="https://github.com/Janik-ux">Janik-ux</a>, licensed under <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
-        <p class="copyright">v1.1.0</p>
+        <p class="copyright">&copy 2023 by <a href="https://github.com/Janik-ux">Janik-ux</a>, licensed under <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+        <p class="copyright">v1.2.0</p>
     </footer>
     <script src="./calc_app.js"></script>
 </body>
