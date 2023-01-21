@@ -35,7 +35,7 @@ h4 {
 }
 
 #fscreen_btn {
-    top: 8px;
+    top: -15px;
     right: 16px;
     font-size: larger;
     background: rgba(0,0,0,0);
@@ -83,7 +83,7 @@ h4 {
 
 #startbtnwrap {
     margin-top: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 #graphwrapper {
@@ -110,7 +110,7 @@ h4 {
         width: 100%;
     }
     #graphwrapper {
-        height: 40vh;
+        height: 50vw;
     }
     #fscreen_btn {
         display: none;

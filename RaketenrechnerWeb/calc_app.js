@@ -74,6 +74,7 @@ function fscreen(btn, element_id) {
     var elem = document.getElementById(element_id);
     elem.classList.remove("graphwrapper_norm");
     elem.classList.add("graphwrapper_max");
+    btn.setAttribute("style", "top: 0px"); // move btn into the field to not exclude it from screen
     jump(element_id);
 
     // change button to "leave"
@@ -86,6 +87,7 @@ function leave_fscreen(btn, element_id) {
     var elem = document.getElementById(element_id);
     elem.classList.remove("graphwrapper_max");
     elem.classList.add("graphwrapper_norm");
+    btn.setAttribute("style", "top: -15px"); // move btn again up a little to not stack it into graph
     jump("");
 
     // change button to "fullscreen"
